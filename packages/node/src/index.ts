@@ -191,9 +191,10 @@ export class Concatflow {
 }
 
 function toError(status: number, body: unknown): ConcatflowError {
-  const obj = (body && typeof body === "object" ? body : {}) as { code?: unknown; detail?: unknown };
+  // `{error}` comes from the key-checking relay (401, 400, 502); `{detail: {code}}` from the API behind it.
+  const obj = (body && typeof body === "object" ? body : {}) as { error?: unknown; detail?: unknown };
   const detail = (obj.detail && typeof obj.detail === "object" ? obj.detail : {}) as { code?: unknown };
-  const code = typeof obj.code === "string" ? obj.code : typeof detail.code === "string" ? detail.code : undefined;
+  const code = typeof obj.error === "string" ? obj.error : typeof detail.code === "string" ? detail.code : undefined;
   const reason = typeof obj.detail === "string" ? obj.detail : code ?? "request failed";
   return new ConcatflowError(`Concatflow API ${status}: ${reason}`, status, code, body);
 }

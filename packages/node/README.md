@@ -136,11 +136,13 @@ and the parsed `body`. The API key never appears in error messages.
 
 | status | typical `code`            | meaning                                                      |
 | ------ | ------------------------- | ------------------------------------------------------------ |
+| 400    | `invalid_body`            | malformed request (e.g. `assistantId` is not a UUID)         |
 | 401    | `invalid_api_key`         | the key is wrong or revoked                                  |
 | 402    |                           | not enough credits                                           |
 | 403    | `partition_keys_mismatch` | partition keys are not exactly the assistant's dimensions    |
 | 404    |                           | unknown assistant, or one from another workspace             |
-| 409    |                           | the per-user door is closed, unpublished, or isolation unsigned |
+| 409    | `door_closed`, `not_published`, `isolation_unsigned` | the per-user door is closed, the assistant unpublished, or its isolation unsigned |
+| 502    | `backend_unreachable`     | Concatflow could not reach its API; retry                    |
 
 Validation errors (empty partitions, bad key prefix, running in a browser) throw before any
 request is made.

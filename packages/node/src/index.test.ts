@@ -127,10 +127,13 @@ describe("conversations", () => {
 });
 
 describe("errors", () => {
+  // The real shapes: `{error}` from the key-checking relay, `{detail: {code}}` from the API behind it.
   it.each([
-    [401, { code: "invalid_api_key" }, "invalid_api_key"],
+    [401, { error: "invalid_api_key" }, "invalid_api_key"],
+    [400, { error: "invalid_body" }, "invalid_body"],
+    [502, { error: "backend_unreachable" }, "backend_unreachable"],
     [403, { detail: { code: "partition_keys_mismatch" } }, "partition_keys_mismatch"],
-    [409, { code: "door_closed" }, "door_closed"],
+    [409, { detail: { code: "door_closed" } }, "door_closed"],
     [402, { detail: { code: "insufficient_credits" } }, "insufficient_credits"],
     [404, { detail: "Not Found" }, undefined],
     [500, "upstream exploded", undefined],
