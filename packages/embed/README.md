@@ -11,10 +11,57 @@ Like `@stripe/stripe-js`, this package does **not** bundle the widget. It inject
 conversation — always comes from Concatflow, so it is never frozen in your bundle at an old
 version.
 
+## No build step: paste two tags
+
+You don't need this package to put the assistant on a page. For the **public door**, paste
+the snippet from your dashboard as is:
+
+```html
+<script src="https://dash.usecubit.io/widget.js"></script>
+<concatflow-assistant site-token="st_…" launcher="bar"></concatflow-assistant>
+```
+
+`launcher="bar"` puts a search bar where the element is written; without it, a chat bubble
+floats over the page. `theme` (`auto` | `light` | `dark`), `accent` and `placeholder` are
+optional attributes.
+
+For the **per-user door**, your page needs a token from your server, so a few lines of
+JavaScript:
+
+```html
+<script src="https://dash.usecubit.io/widget.js"></script>
+<div id="assistant"></div>
+<script>
+  Concatflow.init({
+    session: "{{ token opened by your server }}",
+    launcher: "bar",
+    target: "#assistant",
+    onSessionExpired: () =>
+      fetch("/api/concatflow/session", { method: "POST" })
+        .then((r) => r.json())
+        .then((s) => s.token),
+  });
+</script>
+```
+
+Use the npm package when you want types, a React component, or to load the script only when
+needed.
+
+## Where to find your identifiers
+
+All in the Concatflow dashboard:
+
+| What | Where | Used by |
+| ---- | ----- | ------- |
+| Site token `st_…` | the assistant's public door: turn it on in the **Doors** tab; the snippet to paste contains it | the browser (public, safe to expose) |
+| Assistant ID | the assistant's **Integration** tab (also in its URL, `/assistants/<id>`) | your server |
+| API key `lyra_sk_…` | **Settings → Developers → API keys** (workspace owner only) | your server only — never the browser |
+
 ## Two doors
 
 - **Per user** — `session`: a token your server opened for the logged-in customer with
-  [`@concatflow/node`](../node). The assistant only sees that customer's data.
+  [`@concatflow/node`](https://www.npmjs.com/package/@concatflow/node). The assistant only sees
+  that customer's data.
 - **Public** — `siteToken`: the assistant's public token, no customer identity, only data
   marked public.
 

@@ -10,6 +10,19 @@ end customer who is logged in to **your** product, and hands the opaque token to
 npm install @concatflow/node
 ```
 
+## Where to find your identifiers
+
+In the Concatflow dashboard:
+
+- **API key** `lyra_sk_…`: **Settings → Developers → API keys**. Only the workspace owner can
+  create one. Keep it in an environment variable on your server; it never goes to the browser.
+- **Assistant ID**: the assistant's **Integration** tab (also in its URL, `/assistants/<id>`).
+- **Partition dimensions**: the assistant's **Isolation** tab lists the keys `partitions` must
+  carry (for example `customer_id`).
+
+The browser side, which shows the assistant with the token you open here, is
+[`@concatflow/embed`](https://www.npmjs.com/package/@concatflow/embed).
+
 ## Why the server opens the session
 
 Only your server knows who is logged in. The partition (`{ customer_id: "4712" }`) is sent
