@@ -1,0 +1,13 @@
+{
+  "name": "@concatflow/node",
+  "version": "0.1.0",
+  "description": "Server-side SDK for Concatflow: open embedded-assistant sessions for your end customers, read and erase their conversations.",
+  "license": "MIT",
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" }
+  },
+  "files": ["dist"],
+  "sideEffects": false
+}

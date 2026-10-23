@@ -1,0 +1,21 @@
+{
+  "name": "concatflow-sdk",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "build": "tsc -p packages/node/tsconfig.build.json && tsc -p packages/embed/tsconfig.build.json",
+    "typecheck": "tsc -p packages/node && tsc -p packages/embed",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.3.0",
+    "jsdom": "^30.1.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.5"
+  }
+}
