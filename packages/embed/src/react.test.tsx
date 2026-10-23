@@ -56,6 +56,13 @@ describe("<ConcatflowAssistant />", () => {
     expect(init.mock.calls[0]?.[0]).toMatchObject({ siteToken: "site_1", launcher: "bar", target: div });
   });
 
+  it("forwards accent and placeholder to the widget", async () => {
+    const { init } = installFake();
+    render(<ConcatflowAssistant session="tok" launcher="bar" accent="#0E7C66" placeholder="Ask…" />);
+    await waitFor(() => expect(init).toHaveBeenCalledTimes(1));
+    expect(init.mock.calls[0]?.[0]).toMatchObject({ accent: "#0E7C66", placeholder: "Ask…" });
+  });
+
   it("re-initialises when the launcher changes", async () => {
     const { init, instance } = installFake();
     const { rerender } = render(<ConcatflowAssistant session="tok" launcher="bubble" />);

@@ -89,7 +89,14 @@ describe("init", () => {
     const fake = fakeGlobal();
     window.Concatflow = fake.global;
     const cf = await mod.loadConcatflow({ base: "https://example.test" });
-    const handle = cf.init({ session: "tok", launcher: "bar", target: "#slot", theme: "dark" });
+    const handle = cf.init({
+      session: "tok",
+      launcher: "bar",
+      target: "#slot",
+      theme: "dark",
+      accent: "#0E7C66",
+      placeholder: "Ask about your accounts…",
+    });
 
     expect(handle).toBe(fake.instance);
     expect(fake.init).toHaveBeenCalledWith({
@@ -98,6 +105,8 @@ describe("init", () => {
       launcher: "bar",
       target: "#slot",
       theme: "dark",
+      accent: "#0E7C66",
+      placeholder: "Ask about your accounts…",
       v: mod.PROTOCOL_VERSION,
     });
   });
@@ -110,6 +119,14 @@ describe("init", () => {
     expect(fake.init.mock.calls[0]?.[0]).toMatchObject({ base: "http://localhost:3000", siteToken: "site_1" });
   });
 
+  it("strips a trailing slash from an init base: the widget matches message origins exactly", async () => {
+    const fake = fakeGlobal();
+    window.Concatflow = fake.global;
+    const cf = await mod.loadConcatflow();
+    cf.init({ siteToken: "site_1", base: "http://localhost:3000/" });
+    expect(fake.init.mock.calls[0]?.[0]).toMatchObject({ base: "http://localhost:3000" });
+  });
+
   it.each<[string, unknown, RegExp]>([
     ["neither token", {}, /exactly one/],
     ["both tokens", { session: "a", siteToken: "b" }, /exactly one/],
@@ -119,6 +136,8 @@ describe("init", () => {
     ["expiry handler on public door", { siteToken: "a", onSessionExpired: async () => "x" }, /only applies/],
     ["non-function expiry handler", { session: "a", onSessionExpired: "x" }, /must be a function/],
     ["bad target", { session: "a", target: 42 }, /target/],
+    ["non-string accent", { session: "a", accent: 1 }, /accent/],
+    ["non-string placeholder", { session: "a", placeholder: null }, /placeholder/],
   ])("refuses %s without calling the hosted script", async (_name, options, msg) => {
     const fake = fakeGlobal();
     window.Concatflow = fake.global;

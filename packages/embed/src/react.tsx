@@ -24,7 +24,8 @@ export type ConcatflowAssistantProps =
  * A new `session` prop is passed to the running widget; unmounting destroys it.
  */
 export function ConcatflowAssistant(props: ConcatflowAssistantProps) {
-  const { session, siteToken, launcher, theme, base, onSessionExpired, onError, className, style } = props;
+  const { session, siteToken, launcher, theme, accent, placeholder, base, onSessionExpired, onError, className, style } =
+    props;
   const container = useRef<HTMLDivElement>(null);
   const instance = useRef<ConcatflowInstance | null>(null);
   // Latest values, read when the widget (re)initialises, without re-running the effect.
@@ -43,6 +44,8 @@ export function ConcatflowAssistant(props: ConcatflowAssistantProps) {
         const common = {
           ...(launcher && { launcher }),
           ...(theme && { theme }),
+          ...(accent && { accent }),
+          ...(placeholder && { placeholder }),
           ...(base && { base }),
           ...(launcher === "bar" && container.current && { target: container.current }),
         };
@@ -68,7 +71,7 @@ export function ConcatflowAssistant(props: ConcatflowAssistantProps) {
       created?.destroy();
       if (instance.current === created) instance.current = null;
     };
-  }, [door, siteToken, launcher, theme, base, hasExpiryHandler]);
+  }, [door, siteToken, launcher, theme, accent, placeholder, base, hasExpiryHandler]);
 
   useEffect(() => {
     if (session !== undefined) instance.current?.setSession(session);

@@ -45,6 +45,8 @@ export function Assistant({ initialToken }: { initialToken: string }) {
   `className` / `style`).
 - Changing the `session` prop hands the new token to the running widget. Unmounting destroys
   it. When the logged-in customer changes, open a new session and pass it.
+- `theme`, `accent` and `placeholder` are passed through as in vanilla; changing one re-creates the
+  widget.
 - `onError` receives load or option errors (defaults to `console.error`).
 
 Public door:
@@ -62,8 +64,10 @@ const Concatflow = await loadConcatflow(); // injects widget.js once; later call
 const assistant = Concatflow.init({
   session: tokenFromYourServer,
   launcher: "bar",
-  target: "#assistant", // element or selector, for the bar
+  target: "#assistant", // element or selector, for the bar; without it, a ⌘K / Ctrl+K overlay
   theme: "auto", // "auto" | "light" | "dark"
+  accent: "#0E7C66", // the bar's magnifier and focus ring
+  placeholder: "Ask about your accounts…", // the bar's text before the assistant loads
   onSessionExpired: () => fetch("/api/concatflow/session", { method: "POST" })
     .then((r) => r.json())
     .then((s) => s.token),

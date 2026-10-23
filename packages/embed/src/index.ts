@@ -17,6 +17,10 @@ interface CommonOptions {
   /** Concatflow origin; defaults to the one `widget.js` was loaded from. */
   base?: string;
   theme?: Theme;
+  /** CSS colour for the bar's magnifier and focus ring, e.g. "#0E7C66". */
+  accent?: string;
+  /** The bar's placeholder text before the assistant loads. */
+  placeholder?: string;
 }
 
 /** Per-user door: a session token opened by your server with `@concatflow/node`. */
@@ -73,6 +77,11 @@ export function validateOptions(options: ConcatflowOptions): void {
   }
   if (o.theme !== undefined && !THEMES.includes(o.theme as string)) {
     throw new TypeError(`Concatflow: \`theme\` must be one of ${THEMES.join(", ")}.`);
+  }
+  for (const field of ["accent", "placeholder"] as const) {
+    if (o[field] !== undefined && typeof o[field] !== "string") {
+      throw new TypeError(`Concatflow: \`${field}\` must be a string.`);
+    }
   }
   if (o.onSessionExpired !== undefined) {
     if (hasSite) throw new TypeError("Concatflow: `onSessionExpired` only applies to `session`.");
@@ -137,7 +146,8 @@ function wrap(raw: ConcatflowGlobal, base: string): ConcatflowGlobal {
     init(options) {
       validateOptions(options);
       // `v` tells the hosted script which options contract this package speaks.
-      const versioned = { base, ...options, v: PROTOCOL_VERSION };
+      // The hosted script matches message origins exactly: "https://x/" would never handshake.
+      const versioned = { ...options, base: (options.base ?? base).replace(/\/+$/, ""), v: PROTOCOL_VERSION };
       return raw.init(versioned);
     },
   };
