@@ -3,11 +3,30 @@
   "version": "0.1.0",
   "description": "Server-side SDK for Concatflow: open embedded-assistant sessions for your end customers, read and erase their conversations.",
   "license": "MIT",
+  "keywords": [
+    "concatflow",
+    "embedded-assistant",
+    "analytics",
+    "sdk"
+  ],
   "type": "module",
-  "engines": { "node": ">=18" },
-  "exports": {
-    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" }
+  "engines": {
+    "node": ">=18"
   },
-  "files": ["dist"],
-  "sideEffects": false
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "prepack": "tsc -p tsconfig.build.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
