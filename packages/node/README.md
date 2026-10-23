@@ -3,7 +3,7 @@
 Server-side SDK for Concatflow's embedded assistant. Your backend opens a session for the
 end customer who is logged in to **your** product, and hands the opaque token to the browser.
 
-- Zero runtime dependencies, native `fetch`, Node ≥ 18 (also Bun, Deno, edge runtimes).
+- Zero runtime dependencies, native `fetch`, Node ≥ 18.
 - Refuses to run in a browser: your secret key would leak to every visitor.
 
 ```sh
