@@ -1,8 +1,13 @@
 {
   "name": "@concatflow/node",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Server-side SDK for Concatflow: open embedded-assistant sessions for your end customers, read and erase their conversations.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usecubit/concatflow-sdk.git",
+    "directory": "packages/node"
+  },
   "keywords": [
     "concatflow",
     "embedded-assistant",

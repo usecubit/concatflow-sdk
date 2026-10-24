@@ -1,6 +1,10 @@
 {
   "name": "concatflow-sdk",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usecubit/concatflow-sdk.git"
+  },
   "type": "module",
   "workspaces": ["packages/*"],
   "scripts": {
