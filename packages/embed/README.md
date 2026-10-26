@@ -17,7 +17,7 @@ You don't need this package to put the assistant on a page. For the **public doo
 the snippet from your dashboard as is:
 
 ```html
-<script src="https://dash.usecubit.io/widget.js"></script>
+<script src="https://app.concatflow.com/widget.js"></script>
 <concatflow-assistant site-token="st_…" launcher="bar"></concatflow-assistant>
 ```
 
@@ -29,7 +29,7 @@ For the **per-user door**, your page needs a token from your server, so a few li
 JavaScript:
 
 ```html
-<script src="https://dash.usecubit.io/widget.js"></script>
+<script src="https://app.concatflow.com/widget.js"></script>
 <div id="assistant"></div>
 <script>
   Concatflow.init({
@@ -129,7 +129,7 @@ assistant.destroy();
 `init` validates its options and throws a `TypeError` on the first problem.
 
 `loadConcatflow({ base })` loads from another Concatflow origin (default
-`https://dash.usecubit.io`); `init` uses the same origin unless you pass `base` there too.
+`https://app.concatflow.com`); `init` uses the same origin unless you pass `base` there too.
 
 Server-side rendering: import freely, but call `loadConcatflow()` only in the browser (it
 rejects on the server). The React component already does this in an effect.

@@ -1,5 +1,5 @@
 /** The origin serving `widget.js` and the assistant iframe. */
-export const DEFAULT_BASE = "https://dash.usecubit.io";
+export const DEFAULT_BASE = "https://app.concatflow.com";
 
 /**
  * Version of the options contract this package speaks to the hosted script. The hosted

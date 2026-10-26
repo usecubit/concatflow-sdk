@@ -1,5 +1,5 @@
 /** The Concatflow API origin. Override with `baseUrl` (e.g. for a self-hosted instance). */
-export const DEFAULT_BASE_URL = "https://dash.usecubit.io";
+export const DEFAULT_BASE_URL = "https://app.concatflow.com";
 
 const KEY_PREFIX = "lyra_sk_";
 

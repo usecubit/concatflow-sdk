@@ -165,6 +165,6 @@ request is made.
 ```ts
 new Concatflow({
   apiKey: "lyra_sk_…", // required
-  baseUrl: "https://dash.usecubit.io", // default
+  baseUrl: "https://app.concatflow.com", // default
 });
 ```
